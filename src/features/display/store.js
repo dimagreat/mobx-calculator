@@ -18,6 +18,7 @@ class DisplayStore {
     this.display = '0';
     this.operation = '';
     this.cache = '';
+    this.isError = false;
   }
 
   @action clearDisplay() {
@@ -44,11 +45,11 @@ class DisplayStore {
       return;
     }
     if (this.isInitialDisplay) {
+      this.isError = false;
       this.isInitialDisplay = false;
       this.display = digit;
       return;
     }
-
 
     this.display += digit;
   }
@@ -62,7 +63,7 @@ class DisplayStore {
     this.isInitialDisplay = true;
   }
 
-  getResult() {
+  calcOperation() {
     if (!this.cache || !this.isSwitchedOn) {
       return;
     }
@@ -87,31 +88,31 @@ class DisplayStore {
     return result.toString();
   }
 
-  validate (display) {
-    let isError = false;
-    if (!Number.isFinite(display)) {
-      isError = true;
+  validate (value) {
+    if (!Number.isFinite(value)) {
+      this.isError = true;
     }
-    if (display.length > MAX_DIGITS) {
-      isError = true;
+    if (value.toString().length > MAX_DIGITS) {
+      this.isError = true;
     }
-    return !isError ? display : '0';
   }
 
-  @action showResult() {
-    const result = this.getResult();
-    if (!result) {
-      return;
-    }
-    this.display = result;
+  updateDisplay(value) {
+    this.validate(Number(value));
+    this.display = this.isError ? '0' : value;
     this.cache = '';
     this.operation = '';
     this.isInitialDisplay = true;
   }
 
+  @action showResult() {
+    const result = this.calcOperation();
+    this.updateDisplay(result);
+  }
+
   @action getSqrt() {
-    //TODO Fix length!
-    this.display = Math.sqrt(this.display);
+    const result = Math.sqrt(this.display);
+    this.updateDisplay(result.toString());
   }
 
   @action getPercentage() {

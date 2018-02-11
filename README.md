@@ -1,18 +1,25 @@
 # Calculator Casio SL-300SV
 
-## App Start:
+## How to Start:
 
+1. Clone repository
 ```bash
-yarn && yarn start
+git clone https://github.com/dimagreat/mobx-calculator.git
 ```
 
-### or
+2. Install dependencies
 
 ```bash
-npm install && npm start
+cd mobx-calculator && yarn (npm install)
 ```
 
-### Used dependencies:
+3. Run
+
+```bash
+yarn start (npm start)
+```
+
+## Used dependencies:
 
 * react
 * mobx

@@ -10,14 +10,21 @@
     border-bottom-right-radius: 125%25px;
 }
 
-.displayWrapper {
+.display {
     background-color: #c3c2ab;
     border-radius: 6px;
-}
-
-.display {
+    position: relative;
     padding-right: 7px;
     font-size: 70px;
     text-align: right;
     font-family: 'Calculator', sans-serif;
+    width: 301px;
+    height: 69px;
+}
+
+.error {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-size: 24px;
 }
