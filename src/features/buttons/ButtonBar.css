@@ -1,0 +1,84 @@
+.btnBar {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    position: absolute;
+    display: inline-block;
+    width: 280px;
+    height: auto;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.btn {
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    background-color: #3a3a3a;
+    margin: 0 4px 10px 8px;
+    height: 40px;
+    width: 50px;
+    box-shadow: 0px -1px 0px 1px #222121, inset -1px 1px 10px 1px #515151;
+    transform: perspective(25px) rotateX(-4deg);
+    font-size: 20px;
+}
+
+.btn:active {
+    transform: translate(0px, 3px);
+    box-shadow: none;
+    transform: perspective(25px) rotateX(-4deg);
+}
+    
+.btn,
+.btn:hover,
+.btn:active,
+.btn:visited {
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+.red {
+    background-color: #a72d45;
+    box-shadow: 0px -1px 0px 1px #671c2a;
+}
+
+.switchOn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.switchOn span {
+    text-transform: uppercase;
+    color: #565154;
+    font-size: 11px;
+}
+
+.switchOn .btn {
+    margin-bottom: 0;
+}
+
+.big {
+    height: 90px;
+    position: absolute;
+    right: 25px;
+    top: 4px;
+    transform: perspective(30px) rotateX(-3deg);
+}
+
+.modelName {
+    font-family: 'Orbitron', 'sans-serif';
+    color: #565154;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-align: center;
+    padding-right: 70px;
+    padding-left: 25px;}
+
+.row {
+    display: flex;
+    align-items: baseline;
+    padding: 0 15px;
+    position: relative;
+}
+

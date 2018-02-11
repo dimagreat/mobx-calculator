@@ -1,0 +1,23 @@
+.wrapper {
+    width: 88%;
+    height: 77px;
+    margin: 0 auto 20px;
+    border: 15px solid #464244;
+    background-color: #464244;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 125%25px;
+    border-bottom-right-radius: 125%25px;
+}
+
+.displayWrapper {
+    background-color: #c3c2ab;
+    border-radius: 6px;
+}
+
+.display {
+    padding-right: 7px;
+    font-size: 70px;
+    text-align: right;
+    font-family: 'Calculator', sans-serif;
+}

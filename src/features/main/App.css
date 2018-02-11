@@ -1,0 +1,46 @@
+.calculator {
+    height: 515px;
+    width: 350px;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #d8d2cb;
+    border: 2px solid #757575;
+    border-top-left-radius: 10%20px;
+    border-top-right-radius: 10%20px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 7px 10px 34px 1px rgba(0, 0, 0, 0.68), inset -1px -6px 12px 0.1px #89847e;
+}
+
+.header {
+    padding: 15px 15px 5px;
+    color: #565154;
+    text-transform: uppercase;
+    display: flex;
+}
+
+.title {
+    font-family: 'Orbitron', 'sans-serif';
+    font-size: 21px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.solarWrapper {
+    display: inline-block;
+    margin-left: 85px;
+}
+
+.solar {
+    width: 120px;
+    height: 30px;
+    background-color: #4a231a;
+    border: 5px solid #565154;
+    border-radius: 10px;
+}
+
+.solarText {
+    font-size: 9px;
+    text-align: center;
+}
