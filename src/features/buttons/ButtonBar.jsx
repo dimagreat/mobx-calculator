@@ -11,7 +11,7 @@ class UpdateBar extends React.Component {
         const { displayStore } = this.props;
         return (
             <div className='btn-bar'>
-                <div className='row'>
+                <div className='row firstRow'>
                     <div className='modelName'>
                         SL-300SV
                     </div>
@@ -29,19 +29,19 @@ class UpdateBar extends React.Component {
                 </div>
                 <div className='row'>
                     <button className='btn'
-                            onClick={() => {}} >
+                            onClick={() => displayStore.clearMemory()} >
                             MC
                     </button>
                     <button className='btn'
-                            onClick={() => {}} >
+                            onClick={() => displayStore.getMemory()} >
                             MR
                     </button>
                     <button className='btn'
-                            onClick={() => {}} >
+                            onClick={() => displayStore.reduceMemory()} >
                             M-
                     </button>
                     <button className='btn'
-                            onClick={() => {}} >
+                            onClick={() => displayStore.addMemory()} >
                             M+
                     </button>
                     <button className='btn'
@@ -57,6 +57,7 @@ class UpdateBar extends React.Component {
                     {
                         ['7', '8', '9'].map((digit, index) => (
                             <button className='btn'
+                                    key={index}
                                     onClick={() => displayStore.typeDigit(digit)} >
                                 { digit }
                             </button>
@@ -75,6 +76,7 @@ class UpdateBar extends React.Component {
                     {
                         ['4', '5', '6'].map((digit, index) => (
                             <button className='btn'
+                                    key={index}
                                     onClick={() => displayStore.typeDigit(digit)} >
                                 { digit }
                             </button>
@@ -93,6 +95,7 @@ class UpdateBar extends React.Component {
                     {
                         ['1', '2', '3'].map((digit, index) => (
                             <button className='btn'
+                                    key={index}
                                     onClick={() => displayStore.typeDigit(digit)} >
                                 { digit }
                             </button>
@@ -109,12 +112,13 @@ class UpdateBar extends React.Component {
                                 onClick={() => displayStore.switchOn()} >
                                 { constants.ON }
                         </button>
-                        <span>on</span>
+                        <div>on</div>
                     </div>
 
                     {
-                        ['0', '.'].map((digit, index) => (
+                        ['0', constants.DOT].map((digit, index) => (
                             <button className='btn'
+                                    key={index}
                                     onClick={() => displayStore.typeDigit(digit)} >
                                 { digit }
                             </button>

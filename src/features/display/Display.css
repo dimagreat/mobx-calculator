@@ -1,6 +1,6 @@
 .wrapper {
     width: 88%;
-    height: 77px;
+    height: 66px;
     margin: 0 auto 20px;
     border: 15px solid #464244;
     background-color: #464244;
@@ -15,16 +15,34 @@
     border-radius: 6px;
     position: relative;
     padding-right: 7px;
-    font-size: 70px;
+    font-size: 73px;
     text-align: right;
     font-family: 'Calculator', sans-serif;
     width: 301px;
-    height: 69px;
+    height: 59px;
+}
+
+.displayItem {
+    font-family: 'Orbitron', 'sans-serif';
+    position: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: italic;
 }
 
 .error {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    font-size: 24px;
+    bottom: 6px;
+    left: 7px;
+}
+
+.minus {
+    left: 0;
+    bottom: 5px;
+    font-family: 'Calculator', sans-serif;
+    font-size: 50px;
+}
+
+.memory {
+    left: 9px;
+    top: 7px;
 }

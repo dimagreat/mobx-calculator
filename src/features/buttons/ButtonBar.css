@@ -18,7 +18,7 @@
     margin: 0 4px 10px 8px;
     height: 40px;
     width: 50px;
-    box-shadow: 0px -1px 0px 1px #222121, inset -1px 1px 10px 1px #515151;
+    box-shadow: 0 -1px 0 1px #222121, inset -1px 1px 10px 1px #515151;
     transform: perspective(25px) rotateX(-4deg);
     font-size: 20px;
 }
@@ -48,10 +48,11 @@
     align-items: center;
 }
 
-.switchOn span {
+.switchOn div {
     text-transform: uppercase;
     color: #565154;
     font-size: 11px;
+    margin-left: 7px;
 }
 
 .switchOn .btn {
@@ -70,15 +71,20 @@
     font-family: 'Orbitron', 'sans-serif';
     color: #565154;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     padding-right: 70px;
-    padding-left: 25px;}
+    padding-left: 32px;
+}
 
 .row {
     display: flex;
     align-items: baseline;
     padding: 0 15px;
     position: relative;
+}
+
+.firstRow .btn {
+    height: 30px;
 }
 

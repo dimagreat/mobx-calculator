@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-import { PLUS, MINUS, DIVIDE, MULT } from '../buttons';
+import { DOT, PLUS, MINUS, DIVIDE, MULT } from '../buttons';
 
 const MAX_DIGITS = 8;
 
@@ -11,6 +11,9 @@ class DisplayStore {
   @observable cache = '';
   @observable isError = false;
   @observable isSwitchedOn = true;
+  @observable isNegative = false;
+  @observable isMemory = false;
+  @observable memory = 0;
   isInitialDisplay = true;
 
   init() {
@@ -19,6 +22,7 @@ class DisplayStore {
     this.operation = '';
     this.cache = '';
     this.isError = false;
+    this.isNegative = false;
   }
 
   @action clearDisplay() {
@@ -28,10 +32,42 @@ class DisplayStore {
   @action switchOn() {
     this.isSwitchedOn = true;
     this.init();
+    this.clearMemory();
   }
 
   @action switchOff() {
     this.isSwitchedOn = false;
+  }
+
+  @action addMemory() {
+    if (!this.isMemory) {
+      this.isMemory = true;
+    }
+    this.memory += Number(this.handleNegative(this.display, this.isNegative))
+  }
+
+  @action reduceMemory() {
+    if (!this.isMemory) {
+      this.isMemory = true;
+    }
+    this.memory -= Number(this.handleNegative(this.display, this.isNegative))
+  }
+
+  @action getMemory() {
+    if (!this.isMemory) {
+      return;
+    }
+    if (this.memory < 0) {
+      this.isNegative = true;
+      this.display = Math.abs(this.memory).toString();
+      return;
+    }
+    this.display = this.memory.toString();
+  }
+
+  @action clearMemory() {
+    this.memory = 0;
+    this.isMemory = false;
   }
 
   @action typeDigit(digit) {
@@ -44,14 +80,22 @@ class DisplayStore {
     if (digit === '0' && this.display === '0') {
       return;
     }
+    if (digit === DOT && this.display.includes(DOT)) {
+      return;
+    }
     if (this.isInitialDisplay) {
       this.isError = false;
+      this.isNegative = false;
       this.isInitialDisplay = false;
-      this.display = digit;
+      this.display = digit === DOT ? '0.' : digit;
       return;
     }
 
     this.display += digit;
+  }
+
+  handleNegative (value, isNegative) {
+    return isNegative ? `${-value}` : value
   }
 
   @action addOperation(operation) {
@@ -59,17 +103,15 @@ class DisplayStore {
       return;
     }
     this.operation = operation;
-    this.cache = this.display;
+    this.cache = this.handleNegative(this.display, this.isNegative);
     this.isInitialDisplay = true;
   }
 
-  calcOperation() {
-    if (!this.cache || !this.isSwitchedOn) {
+  calcOperation(first, second) {
+    if (!first || !second) {
       return;
     }
     let result;
-    const first = Number(this.cache);
-    const second = Number(this.display);
     if (this.operation === PLUS) {
       result = first + second;
     }
@@ -88,39 +130,56 @@ class DisplayStore {
     return result.toString();
   }
 
-  validate (value) {
+  getValidated (value) {
+    let result = value.toString();
     if (!Number.isFinite(value)) {
       this.isError = true;
+      result = '0'
     }
-    if (value.toString().length > MAX_DIGITS) {
+    if (value >= 0) {
+      this.isNegative = false;
+    }
+    if (value < 0) {
+      this.isNegative = true;
+      result = Math.abs(value).toString();
+    }
+    if (result.length > MAX_DIGITS) {
       this.isError = true;
+      // TODO: Update with dot
+      result = result.slice(0, 8)
     }
+
+    return result;
   }
 
   updateDisplay(value) {
-    this.validate(Number(value));
-    this.display = this.isError ? '0' : value;
+    this.display = this.getValidated(Number(value));
     this.cache = '';
     this.operation = '';
     this.isInitialDisplay = true;
   }
 
   @action showResult() {
-    const result = this.calcOperation();
+    const second =  Number(this.handleNegative(this.display, this.isNegative));
+    const result = this.calcOperation(Number(this.cache), second);
     this.updateDisplay(result);
   }
 
   @action getSqrt() {
-    const result = Math.sqrt(this.display);
+    const result = Math.sqrt(Number(this.display));
     this.updateDisplay(result.toString());
   }
 
   @action getPercentage() {
-    // this.display = this.cache * (this.display / 100);
+    const first = Number(this.cache);
+    const second = Number(this.handleNegative(this.display, this.isNegative));
+    const percent = first * (second / 100);
+    const result = this.calcOperation(first, percent);
+    this.updateDisplay(result);
   }
 
   @action plusMinus() {
-    //
+    this.isNegative = !this.isNegative;
   }
 
 }

@@ -9,4 +9,5 @@ export const PLUSMINUS = '+/-';
 export const CLEAR = 'C';
 export const ON = 'AC';
 export const OFF = 'OFF';
+export const DOT = '.';
 
