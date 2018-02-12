@@ -21,9 +21,6 @@ export function calcOperation(first, second, operation) {
   if (operation === DIVIDE) {
     result = first / second;
   }
-  if (operation === DIVIDE) {
-    result = first / second;
-  }
   return result.toString();
 }
 

@@ -7,8 +7,71 @@ import './ButtonBar.css';
 @inject('displayStore')
 @observer
 class UpdateBar extends React.Component {
+
+    createButton (title, action, key) {
+        return (
+            // TODO Update with class adding
+            <button className='btn'
+                    key={key}
+                    onClick={action} >
+                {title}
+            </button>
+        )
+    }
+
+    renderRow (row) {
+        const result = [];
+        let index = 0;
+        for (let [key, value] of row) {
+            result.push(this.createButton(key, value, index++)) ;
+        }
+        return result;
+    }
+
     render() {
         const { displayStore } = this.props;
+        
+        const firstRow = new Map([
+            [[constants.SQRT], () => displayStore.getSqrt()],
+            [[constants.OFF], () => displayStore.switchOff()]
+        ]);
+
+        const secondRow = new Map ([
+            [[constants.MEMORY_CLR], () => displayStore.clearMemory()],
+            [[constants.MEMORY_RETURN], () => displayStore.getMemory()],
+            [[constants.MEMORY_MINUS], () => displayStore.reduceMemory()],
+            [[constants.MEMORY_PLUS], () => displayStore.addMemory()],
+            [[constants.DIVIDE], () => displayStore.addOperation(constants.DIVIDE)],  
+        ]);
+
+        const thirdRow = new Map([
+            [[constants.PERCENT], () => displayStore.getPercentage()],
+            ['7', () => displayStore.typeDigit('7')],
+            ['8', () => displayStore.typeDigit('8')],
+            ['9', () => displayStore.typeDigit('9')],
+            [[constants.MULT], () => displayStore.addOperation(constants.MULT)],
+        ]);
+        
+        const fourthRow = new Map ([
+            [[constants.PLUSMINUS], () => displayStore.plusMinus()],
+            ['4', () => displayStore.typeDigit('4')],
+            ['5', () => displayStore.typeDigit('5')],
+            ['6', () => displayStore.typeDigit('6')],
+            [[constants.MINUS], () => displayStore.addOperation(constants.MINUS)],
+        ]);
+
+        const fifthRow = new Map([
+            ['1', () => displayStore.typeDigit('1')],
+            ['2', () => displayStore.typeDigit('2')],
+            ['3', () => displayStore.typeDigit('3')],
+        ])
+
+        const sixRow = new Map([
+            ['0', () => displayStore.typeDigit('0')],
+            [[constants.DOT], () => displayStore.typeDigit(constants.DOT)],
+            [[constants.RESULT], () => displayStore.showResult()],
+        ]);
+
         return (
             <div className='btn-bar'>
                 <div className='row firstRow'>
@@ -16,91 +79,24 @@ class UpdateBar extends React.Component {
                         SL-300SV
                     </div>
                     <div>
-                        <button className='btn'
-                            onClick={() => displayStore.getSqrt()} >
-                            {constants.SQRT}
-                        </button>
-                        <button className='btn'
-                            onClick={() => displayStore.switchOff()} >
-                            {constants.OFF }
-                        </button>
+                        {this.renderRow(firstRow)}
                     </div>
- 
                 </div>
                 <div className='row'>
-                    <button className='btn'
-                            onClick={() => displayStore.clearMemory()} >
-                            MC
-                    </button>
-                    <button className='btn'
-                            onClick={() => displayStore.getMemory()} >
-                            MR
-                    </button>
-                    <button className='btn'
-                            onClick={() => displayStore.reduceMemory()} >
-                            M-
-                    </button>
-                    <button className='btn'
-                            onClick={() => displayStore.addMemory()} >
-                            M+
-                    </button>
-                    <button className='btn'
-                            onClick={() => displayStore.addOperation(constants.DIVIDE)} >
-                            { constants.DIVIDE }
-                    </button>
+                    {this.renderRow(secondRow)}
                 </div>
                 <div className='row'>
-                    <button className='btn'
-                            onClick={() => displayStore.getPercentage()} >
-                            { constants.PERCENT }
-                    </button>
-                    {
-                        ['7', '8', '9'].map((digit, index) => (
-                            <button className='btn'
-                                    key={index}
-                                    onClick={() => displayStore.typeDigit(digit)} >
-                                { digit }
-                            </button>
-                        ))
-                    }
-                    <button className='btn'
-                            onClick={() => displayStore.addOperation(constants.MULT)} >
-                            { constants.MULT }
-                    </button>
+                    {this.renderRow(thirdRow)}
                 </div>
                 <div className='row'>
-                    <button className='btn'
-                            onClick={() => displayStore.plusMinus()} >
-                            { constants.PLUSMINUS }
-                    </button>
-                    {
-                        ['4', '5', '6'].map((digit, index) => (
-                            <button className='btn'
-                                    key={index}
-                                    onClick={() => displayStore.typeDigit(digit)} >
-                                { digit }
-                            </button>
-                        ))
-                    }
-                    <button className='btn'
-                            onClick={() => displayStore.addOperation(constants.MINUS)} >
-                            { constants.MINUS }
-                    </button>
+                    {this.renderRow(fourthRow)}
                 </div>
                 <div className='row'>
                     <button className='btn red'
                             onClick={() => displayStore.clearDisplay()} >
                             { constants.CLEAR }
                     </button>
-                    {
-                        ['1', '2', '3'].map((digit, index) => (
-                            <button className='btn'
-                                    key={index}
-                                    onClick={() => displayStore.typeDigit(digit)} >
-                                { digit }
-                            </button>
-                        ))
-                    }
+                    {this.renderRow(fifthRow)}
                     <button className='btn big'
                             onClick={() => displayStore.addOperation(constants.PLUS)} >
                             { constants.PLUS }
@@ -114,20 +110,7 @@ class UpdateBar extends React.Component {
                         </button>
                         <div>on</div>
                     </div>
-
-                    {
-                        ['0', constants.DOT].map((digit, index) => (
-                            <button className='btn'
-                                    key={index}
-                                    onClick={() => displayStore.typeDigit(digit)} >
-                                { digit }
-                            </button>
-                        ))
-                    }
-                    <button className='btn'
-                            onClick={() => displayStore.showResult()} >
-                            { constants.RESULT }
-                    </button>
+                    {this.renderRow(sixRow)}
                 </div>
             </div>
         )

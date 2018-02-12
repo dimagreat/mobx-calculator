@@ -9,13 +9,13 @@ class DisplayStore {
 
   @observable display = '0';
   @observable operation = '';
-  @observable cache = '';
   @observable isError = false;
   @observable isSwitchedOn = true;
   @observable isNegative = false;
   @observable isMemory = false;
-  @observable memory = 0;
 
+  cache = '';
+  memory = 0;
   isInitialDisplay = true;
 
   init() {
@@ -138,6 +138,9 @@ class DisplayStore {
   }
 
   @action getPercentage() {
+    if (!this.cache) {
+      return;
+    }
     const first = Number(this.cache);
     const second = Number(handleNegative(this.display, this.isNegative));
     const percent = first * (second / 100);
