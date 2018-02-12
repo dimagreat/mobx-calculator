@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 
-import { DOT, PLUS, MINUS, DIVIDE, MULT } from '../buttons';
+import { DOT } from '../buttons';
+import { calcOperation, isNumeric, handleNegative } from './utils';
 
 const MAX_DIGITS = 8;
 
@@ -14,6 +15,7 @@ class DisplayStore {
   @observable isNegative = false;
   @observable isMemory = false;
   @observable memory = 0;
+
   isInitialDisplay = true;
 
   init() {
@@ -43,26 +45,21 @@ class DisplayStore {
     if (!this.isMemory) {
       this.isMemory = true;
     }
-    this.memory += Number(this.handleNegative(this.display, this.isNegative))
+    this.memory += Number(handleNegative(this.display, this.isNegative))
   }
 
   @action reduceMemory() {
     if (!this.isMemory) {
       this.isMemory = true;
     }
-    this.memory -= Number(this.handleNegative(this.display, this.isNegative))
+    this.memory -= Number(handleNegative(this.display, this.isNegative))
   }
 
   @action getMemory() {
     if (!this.isMemory) {
       return;
     }
-    if (this.memory < 0) {
-      this.isNegative = true;
-      this.display = Math.abs(this.memory).toString();
-      return;
-    }
-    this.display = this.memory.toString();
+    this.updateDisplay(this.memory);
   }
 
   @action clearMemory() {
@@ -71,16 +68,13 @@ class DisplayStore {
   }
 
   @action typeDigit(digit) {
-    if (!this.isSwitchedOn) {
-      return;
-    }
-    if (this.display.length === MAX_DIGITS) {
-      return;
-    }
-    if (digit === '0' && this.display === '0') {
-      return;
-    }
-    if (digit === DOT && this.display.includes(DOT)) {
+    const isOverRange = this.display.length === MAX_DIGITS;
+    const isDuplicateZero = digit === '0' && this.display === '0';
+    const isDuplicateDot = digit === DOT && this.display.includes(DOT);
+    if (
+        !this.isSwitchedOn || (isOverRange && !this.isInitialDisplay) ||
+        isDuplicateDot || isDuplicateZero
+    ) {
       return;
     }
     if (this.isInitialDisplay) {
@@ -94,47 +88,20 @@ class DisplayStore {
     this.display += digit;
   }
 
-  handleNegative (value, isNegative) {
-    return isNegative ? `${-value}` : value
-  }
-
   @action addOperation(operation) {
     if (!this.isSwitchedOn) {
       return;
     }
     this.operation = operation;
-    this.cache = this.handleNegative(this.display, this.isNegative);
+    this.cache = handleNegative(this.display, this.isNegative);
     this.isInitialDisplay = true;
-  }
-
-  calcOperation(first, second) {
-    if (!first || !second) {
-      return;
-    }
-    let result;
-    if (this.operation === PLUS) {
-      result = first + second;
-    }
-    if (this.operation === MINUS) {
-      result = first - second;
-    }
-    if (this.operation === MULT) {
-      result = first * second;
-    }
-    if (this.operation === DIVIDE) {
-      result = first / second;
-    }
-    if (this.operation === DIVIDE) {
-      result = first / second;
-    }
-    return result.toString();
   }
 
   getValidated (value) {
     let result = value.toString();
-    if (!Number.isFinite(value)) {
+    if (!isNumeric(value)) {
       this.isError = true;
-      result = '0'
+      return '0'
     }
     if (value >= 0) {
       this.isNegative = false;
@@ -160,8 +127,8 @@ class DisplayStore {
   }
 
   @action showResult() {
-    const second =  Number(this.handleNegative(this.display, this.isNegative));
-    const result = this.calcOperation(Number(this.cache), second);
+    const second =  Number(handleNegative(this.display, this.isNegative));
+    const result = calcOperation(Number(this.cache), second, this.operation);
     this.updateDisplay(result);
   }
 
@@ -172,9 +139,9 @@ class DisplayStore {
 
   @action getPercentage() {
     const first = Number(this.cache);
-    const second = Number(this.handleNegative(this.display, this.isNegative));
+    const second = Number(handleNegative(this.display, this.isNegative));
     const percent = first * (second / 100);
-    const result = this.calcOperation(first, percent);
+    const result = calcOperation(first, percent, this.operation);
     this.updateDisplay(result);
   }
 
