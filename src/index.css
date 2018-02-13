@@ -1,12 +1,12 @@
-@font-face{
+@font-face {
   font-family: 'Calculator';
   src: url('./assets/digital-7.ttf');
 }
 
-@font-face{
+@font-face {
   font-family: 'Orbitron';
   src: url('./assets/Orbitron.ttf');
- }
+}
 
 body {
   margin: 0;

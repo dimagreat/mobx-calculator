@@ -1,4 +1,4 @@
-import { PLUS, MINUS, DIVIDE, MULT } from '../buttons';
+import { DIVIDE, MINUS, MULT, PLUS } from '../buttons';
 
 export function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -24,6 +24,6 @@ export function calcOperation(first, second, operation) {
   return result.toString();
 }
 
-export  function handleNegative (value, isNegative) {
+export function handleNegative(value, isNegative) {
   return isNegative ? `${-value}` : value
 }

@@ -1,34 +1,34 @@
 .btnBar {
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    position: absolute;
-    display: inline-block;
-    width: 280px;
-    height: auto;
-    margin-top: 15px;
-    margin-left: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  position: absolute;
+  display: inline-block;
+  width: 280px;
+  height: auto;
+  margin-top: 15px;
+  margin-left: 15px;
 }
 
 .btn {
-    border-radius: 10px;
-    border: none;
-    color: #fff;
-    background-color: #3a3a3a;
-    margin: 0 4px 10px 8px;
-    height: 40px;
-    width: 50px;
-    box-shadow: 0 -1px 0 1px #222121, inset -1px 1px 10px 1px #515151;
-    transform: perspective(25px) rotateX(-4deg);
-    font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  background-color: #3a3a3a;
+  margin: 0 4px 10px 8px;
+  height: 40px;
+  width: 50px;
+  box-shadow: 0 -1px 0 1px #222121, inset -1px 1px 10px 1px #515151;
+  transform: perspective(25px) rotateX(-4deg);
+  font-size: 20px;
 }
 
 .btn:active {
-    transform: translate(0px, 3px);
-    box-shadow: none;
-    transform: perspective(25px) rotateX(-4deg);
+  transform: translate(0px, 3px);
+  box-shadow: none;
+  transform: perspective(25px) rotateX(-4deg);
 }
-    
+
 .btn,
 .btn:hover,
 .btn:active,
@@ -38,53 +38,53 @@
 }
 
 .red {
-    background-color: #a72d45;
-    box-shadow: 0px -1px 0px 1px #671c2a;
+  background-color: #a72d45;
+  box-shadow: 0px -1px 0px 1px #671c2a;
 }
 
 .switchOn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .switchOn div {
-    text-transform: uppercase;
-    color: #565154;
-    font-size: 11px;
-    margin-left: 7px;
+  text-transform: uppercase;
+  color: #565154;
+  font-size: 11px;
+  margin-left: 7px;
 }
 
 .switchOn .btn {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .big {
-    height: 90px;
-    position: absolute;
-    right: 25px;
-    top: 4px;
-    transform: perspective(30px) rotateX(-3deg);
+  height: 90px;
+  position: absolute;
+  right: 25px;
+  top: 4px;
+  transform: perspective(30px) rotateX(-3deg);
 }
 
 .modelName {
-    font-family: 'Orbitron', 'sans-serif';
-    color: #565154;
-    text-transform: uppercase;
-    font-size: 13px;
-    text-align: center;
-    padding-right: 70px;
-    padding-left: 32px;
+  font-family: 'Orbitron', 'sans-serif';
+  color: #565154;
+  text-transform: uppercase;
+  font-size: 13px;
+  text-align: center;
+  padding-right: 70px;
+  padding-left: 32px;
 }
 
 .row {
-    display: flex;
-    align-items: baseline;
-    padding: 0 15px;
-    position: relative;
+  display: flex;
+  align-items: baseline;
+  padding: 0 15px;
+  position: relative;
 }
 
 .firstRow .btn {
-    height: 30px;
+  height: 30px;
 }
 
