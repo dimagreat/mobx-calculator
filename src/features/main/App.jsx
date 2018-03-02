@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { Provider } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
