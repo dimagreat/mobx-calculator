@@ -1,17 +1,12 @@
 // @flow
 import React from 'react';
 import { inject, observer } from 'mobx-react';
+import { IDisplayStore } from './store';
 
 import './Display.css';
 
 type Props = {
-  displayStore: {
-    display: string,
-    isError: boolean,
-    isMemory: boolean,
-    isNegative: boolean,
-    isSwitchedOn: boolean,
-  },
+  displayStore: IDisplayStore,
 };
 
 @inject('displayStore')
@@ -19,15 +14,9 @@ type Props = {
 class Display extends React.Component<Props> {
   render() {
     const { displayStore } = this.props;
-    const error = displayStore.isError && (
-      <span className="error displayItem">E</span>
-    );
-    const negative = displayStore.isNegative && (
-      <span className="minus displayItem">-</span>
-    );
-    const memory = displayStore.isMemory && (
-      <span className="memory displayItem">M</span>
-    );
+    const error = displayStore.isError && <span className="error displayItem">E</span>;
+    const negative = displayStore.isNegative && <span className="minus displayItem">-</span>;
+    const memory = displayStore.isMemory && <span className="memory displayItem">M</span>;
 
     const display = displayStore.isSwitchedOn ? (
       <div>

@@ -1,3 +1,5 @@
+// @flow
+
 import { action, observable } from 'mobx';
 
 import { DOT } from '../buttons';
@@ -5,17 +7,38 @@ import { calcOperation, handleNegative, isNumeric } from './utils';
 
 const MAX_DIGITS = 8;
 
-class DisplayStore {
-  @observable display = '0';
-  @observable operation = '';
-  @observable isError = false;
-  @observable isSwitchedOn = true;
-  @observable isNegative = false;
-  @observable isMemory = false;
+export interface IDisplayStore {
+  display: string;
+  isError: boolean;
+  isSwitchedOn: boolean;
+  isNegative: boolean;
+  isMemory: boolean;
+  clearDisplay: () => void;
+  switchOn: () => void;
+  switchOff: () => void;
+  addMemory: () => void;
+  reduceMemory: () => void;
+  getMemory: () => void;
+  clearMemory: () => void;
+  typeDigit: (digit: string) => void;
+  addOperation: (operation: string) => void;
+  showResult: () => void;
+  getSqrt: () => void;
+  getPercentage: () => void;
+  plusMinus: () => void;
+}
 
-  cache = '';
-  memory = 0;
-  isInitialDisplay = true;
+class DisplayStore {
+  @observable display: string = '0';
+  @observable isError: boolean = false;
+  @observable isSwitchedOn: boolean = true;
+  @observable isNegative: boolean = false;
+  @observable isMemory: boolean = false;
+
+  operation: string = '';
+  cache: string = '';
+  memory: number = 0;
+  isInitialDisplay: boolean = true;
 
   init() {
     this.isInitialDisplay = true;
@@ -64,7 +87,7 @@ class DisplayStore {
     if (!this.isMemory) {
       return;
     }
-    this.updateDisplay(this.memory);
+    this.updateDisplay(this.memory.toString());
   }
 
   @action
@@ -74,7 +97,7 @@ class DisplayStore {
   }
 
   @action
-  typeDigit(digit) {
+  typeDigit(digit: string) {
     const isOverRange = this.display.length === MAX_DIGITS;
     const isDuplicateZero = digit === '0' && this.display === '0';
     const isDuplicateDot = digit === DOT && this.display.includes(DOT);
@@ -98,7 +121,7 @@ class DisplayStore {
   }
 
   @action
-  addOperation(operation) {
+  addOperation(operation: string) {
     if (!this.isSwitchedOn) {
       return;
     }
@@ -107,7 +130,7 @@ class DisplayStore {
     this.isInitialDisplay = true;
   }
 
-  getValidated(value) {
+  getValidated(value: number) {
     let result = value.toString();
     if (!isNumeric(value)) {
       this.isError = true;
@@ -129,7 +152,7 @@ class DisplayStore {
     return result;
   }
 
-  updateDisplay(value) {
+  updateDisplay(value: string) {
     this.display = this.getValidated(Number(value));
     this.cache = '';
     this.operation = '';

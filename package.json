@@ -16,13 +16,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",
-    "precommit": "pretty-quick --staged && flow"
+    "precommit": "flow"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
     "mobx-react-devtools": "^4.2.15",
-    "prettier": "1.11.1",
-    "pretty-quick": "^1.4.1"
+    "prettier": "1.11.1"
   }
 }
