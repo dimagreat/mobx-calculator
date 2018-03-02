@@ -43,7 +43,7 @@ class UpdateBar extends React.Component<Props> {
       [constants.OFF, () => displayStore.switchOff()],
     ]);
 
-    const secondRow: Row  = new Map([
+    const secondRow: Row = new Map([
       [constants.MEMORY_CLR, () => displayStore.clearMemory()],
       [constants.MEMORY_RETURN, () => displayStore.getMemory()],
       [constants.MEMORY_MINUS, () => displayStore.reduceMemory()],
@@ -51,7 +51,7 @@ class UpdateBar extends React.Component<Props> {
       [constants.DIVIDE, () => displayStore.addOperation(constants.DIVIDE)],
     ]);
 
-    const thirdRow: Row  = new Map([
+    const thirdRow: Row = new Map([
       [constants.PERCENT, () => displayStore.getPercentage()],
       ['7', () => displayStore.typeDigit('7')],
       ['8', () => displayStore.typeDigit('8')],
@@ -59,7 +59,7 @@ class UpdateBar extends React.Component<Props> {
       [constants.MULT, () => displayStore.addOperation(constants.MULT)],
     ]);
 
-    const fourthRow: Row  = new Map([
+    const fourthRow: Row = new Map([
       [constants.PLUSMINUS, () => displayStore.plusMinus()],
       ['4', () => displayStore.typeDigit('4')],
       ['5', () => displayStore.typeDigit('5')],
@@ -67,13 +67,13 @@ class UpdateBar extends React.Component<Props> {
       [constants.MINUS, () => displayStore.addOperation(constants.MINUS)],
     ]);
 
-    const fifthRow: Row  = new Map([
+    const fifthRow: Row = new Map([
       ['1', () => displayStore.typeDigit('1')],
       ['2', () => displayStore.typeDigit('2')],
       ['3', () => displayStore.typeDigit('3')],
     ]);
 
-    const sixRow: Row  = new Map([
+    const sixRow: Row = new Map([
       ['0', () => displayStore.typeDigit('0')],
       [constants.DOT, () => displayStore.typeDigit(constants.DOT)],
       [constants.RESULT, () => displayStore.showResult()],
