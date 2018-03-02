@@ -25,5 +25,5 @@ export function calcOperation(first, second, operation) {
 }
 
 export function handleNegative(value, isNegative) {
-  return isNegative ? `${-value}` : value
+  return isNegative ? `${-value}` : value;
 }

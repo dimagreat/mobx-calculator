@@ -11,21 +11,21 @@ const stores = {
   displayStore,
 };
 
-export default function () {
+export default function() {
   return (
     <Provider {...stores}>
-      <div className='calculator'>
-        <div className='header'>
-          <div className='title'>Casio</div>
-          <div className='solarWrapper'>
-            <div className='solar'/>
-            <div className='solarText'>two way power</div>
+      <div className="calculator">
+        <div className="header">
+          <div className="title">Casio</div>
+          <div className="solarWrapper">
+            <div className="solar" />
+            <div className="solarText">two way power</div>
           </div>
         </div>
-        <DevTools/>
-        <Display/>
-        <ButtonBar/>
+        <DevTools />
+        <Display />
+        <ButtonBar />
       </div>
     </Provider>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react';
 
 import * as constants from './constants';
 import './ButtonBar.css';
@@ -7,16 +7,13 @@ import './ButtonBar.css';
 @inject('displayStore')
 @observer
 class UpdateBar extends React.Component {
-
   createButton(title, action, key) {
     return (
       // TODO Update with class adding
-      <button className='btn'
-              key={key}
-              onClick={action}>
+      <button className="btn" key={key} onClick={action}>
         {title}
       </button>
-    )
+    );
   }
 
   renderRow(row) {
@@ -33,7 +30,7 @@ class UpdateBar extends React.Component {
 
     const firstRow = new Map([
       [[constants.SQRT], () => displayStore.getSqrt()],
-      [[constants.OFF], () => displayStore.switchOff()]
+      [[constants.OFF], () => displayStore.switchOff()],
     ]);
 
     const secondRow = new Map([
@@ -73,39 +70,26 @@ class UpdateBar extends React.Component {
     ]);
 
     return (
-      <div className='btn-bar'>
-        <div className='row firstRow'>
-          <div className='modelName'>
-            SL-300SV
-          </div>
-          <div>
-            {this.renderRow(firstRow)}
-          </div>
+      <div className="btn-bar">
+        <div className="row firstRow">
+          <div className="modelName">SL-300SV</div>
+          <div>{this.renderRow(firstRow)}</div>
         </div>
-        <div className='row'>
-          {this.renderRow(secondRow)}
-        </div>
-        <div className='row'>
-          {this.renderRow(thirdRow)}
-        </div>
-        <div className='row'>
-          {this.renderRow(fourthRow)}
-        </div>
-        <div className='row'>
-          <button className='btn red'
-                  onClick={() => displayStore.clearDisplay()}>
+        <div className="row">{this.renderRow(secondRow)}</div>
+        <div className="row">{this.renderRow(thirdRow)}</div>
+        <div className="row">{this.renderRow(fourthRow)}</div>
+        <div className="row">
+          <button className="btn red" onClick={() => displayStore.clearDisplay()}>
             {constants.CLEAR}
           </button>
           {this.renderRow(fifthRow)}
-          <button className='btn big'
-                  onClick={() => displayStore.addOperation(constants.PLUS)}>
+          <button className="btn big" onClick={() => displayStore.addOperation(constants.PLUS)}>
             {constants.PLUS}
           </button>
         </div>
-        <div className='row'>
-          <div className='switchOn'>
-            <button className='btn red'
-                    onClick={() => displayStore.switchOn()}>
+        <div className="row">
+          <div className="switchOn">
+            <button className="btn red" onClick={() => displayStore.switchOn()}>
               {constants.ON}
             </button>
             <div>on</div>
@@ -113,7 +97,7 @@ class UpdateBar extends React.Component {
           {this.renderRow(sixRow)}
         </div>
       </div>
-    )
+    );
   }
 }
 

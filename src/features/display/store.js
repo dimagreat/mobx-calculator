@@ -6,7 +6,6 @@ import { calcOperation, handleNegative, isNumeric } from './utils';
 const MAX_DIGITS = 8;
 
 class DisplayStore {
-
   @observable display = '0';
   @observable operation = '';
   @observable isError = false;
@@ -49,7 +48,7 @@ class DisplayStore {
     if (!this.isMemory) {
       this.isMemory = true;
     }
-    this.memory += Number(handleNegative(this.display, this.isNegative))
+    this.memory += Number(handleNegative(this.display, this.isNegative));
   }
 
   @action
@@ -57,7 +56,7 @@ class DisplayStore {
     if (!this.isMemory) {
       this.isMemory = true;
     }
-    this.memory -= Number(handleNegative(this.display, this.isNegative))
+    this.memory -= Number(handleNegative(this.display, this.isNegative));
   }
 
   @action
@@ -80,8 +79,10 @@ class DisplayStore {
     const isDuplicateZero = digit === '0' && this.display === '0';
     const isDuplicateDot = digit === DOT && this.display.includes(DOT);
     if (
-      !this.isSwitchedOn || (isOverRange && !this.isInitialDisplay) ||
-      isDuplicateDot || isDuplicateZero
+      !this.isSwitchedOn ||
+      (isOverRange && !this.isInitialDisplay) ||
+      isDuplicateDot ||
+      isDuplicateZero
     ) {
       return;
     }
@@ -110,7 +111,7 @@ class DisplayStore {
     let result = value.toString();
     if (!isNumeric(value)) {
       this.isError = true;
-      return '0'
+      return '0';
     }
     if (value >= 0) {
       this.isNegative = false;
@@ -122,7 +123,7 @@ class DisplayStore {
     if (result.length > MAX_DIGITS) {
       this.isError = true;
       // TODO: Update with dot
-      result = result.slice(0, 8)
+      result = result.slice(0, 8);
     }
 
     return result;
@@ -164,7 +165,6 @@ class DisplayStore {
   plusMinus() {
     this.isNegative = !this.isNegative;
   }
-
 }
 
 export default new DisplayStore();
